@@ -6,9 +6,11 @@ const ImageSchema = new Schema({
   url: String,
   filename: String
 });
-ImageSchema.virtual("thumbnail").get(function() {
+ImageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_200");
 })
+
+const opts = { toJSON: { virtuals: true } };
 
 const CampGroundSchema = new Schema({
   title: String,
@@ -37,10 +39,16 @@ const CampGroundSchema = new Schema({
       ref: "Review"
     }
   ]
+}, opts)
+
+CampGroundSchema.virtual("properties.popUpMarkup").get(function () {
+  return `
+  <strong><a href="/campgrounds/${this._id}">${this.title}</a><strong>
+  <p>${this.description.substring(0, 20)}...</p>`
 })
 
 // If a post is removed, its reviews should be removed from Review schema
-CampGroundSchema.post("findOneAndDelete", async function(doc) {
+CampGroundSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
     await Review.remove({
       _id: {
