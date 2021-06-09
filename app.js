@@ -153,7 +153,7 @@ app.use("/", userRoutes);
 
 
 app.get("/", (req, res) => {
-  res.render("Home");
+  res.render("home");
 })
 
 // catch all the invalid routes at the end
