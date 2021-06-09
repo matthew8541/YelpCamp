@@ -1,2 +1,2 @@
 # YelpCamp
-https://yelpcamp-yeongjertseng.herokuapp.com/campgrounds
+https://yelpcamp-yeongjertseng.herokuapp.com
